@@ -6,12 +6,17 @@ public class DataProcessing {
 		//Konstruktor
 	}
 	
-	public static final String[] check = {"A","B","C","D","E","F","G","H","M","L","O","Mensa","Bibliothek"};
+	protected static final String[] check = {"A","B","C","D","E","F","G","H","M","L","O","Mensa","Bibliothek"};
+	protected static final String[] time = new String[51];
 	
-	public String[] getCheck() {
-		return check;
+	public static String getCheck(int i) {
+		return check[i];
 	}
-
+	public static String getTime(int i) {
+		return time[i];
+	}
+	
+	//Hier wird die Auswahl des Gebäudes ausgewertet und mit dem array "check" verglichen. Das ergebnis wird als int zurückgegeben. 
 	public static int auswahlVerarbeitung(String building){
 		int checkFinal = 5; // Für Standard Gebäude F
 		for(int i = 0; i < check.length; i++){
@@ -24,6 +29,7 @@ public class DataProcessing {
 		return 	checkFinal;//
 	}
 	
+	//Ausgelesener Wert von englischen und deutschen Systemen in Wochentag Deutsch Konvertieren: Mo oder Mon --> Montag
 	public String convertWeekDays(String breakup[], String day){
 		String montag = "Mo";
 		String dienstag = "Di";

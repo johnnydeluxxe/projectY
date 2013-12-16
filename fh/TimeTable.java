@@ -3,11 +3,15 @@ package fh;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ZeitRaster {
+public class TimeTable {
 	
-	ResultSet rsZeit = MySQLConnection.printZeit("rum022");
+	private ResultSet rsZeit;
 	
-	// Zeit auslesen und in String-Array speichern
+	TimeTable(){
+		rsZeit = MySQLConnection.printZeit("rum022"); 	// Raum "rum022" wird verwendet da dies eine sichere Zeitquelle ist. Darf momentan nicht 
+	}													// verändert werden.
+	
+	// Zeit auslesen und Wert an stelle "a" und stelle "b" in String-Array speichern
 	public String StringArray(int a, int b) { 
 		String[][] stringZeitRaster = new String[6][51];
 		String stringWert = null;
@@ -28,7 +32,7 @@ public class ZeitRaster {
 		return stringWert;
 	}
 	
-	//Zeit auslesen und in Boolean-Array speichern
+	//Zeit auslesen und Wert an stelle "a" und stelle "b" in Boolean-Array speichern
 	public boolean BooleanArray(int a, int b) {	
 		boolean[][] boolZeitRaster = new boolean[6][51];
 		boolean booleanWert = false;
@@ -49,8 +53,7 @@ public class ZeitRaster {
 		return booleanWert;
 	}
 	
-	
-	//Zeit auslesen und in Double-Array speichern
+	//Zeit auslesen und Wert an stelle "a" und stelle "b" in Double-Array speichern
 	public double DoubleArray(int a, int b) {
 		double[][] doubleZeitRaster = new double[6][51];
 		double doubleWert = 0.0D;
@@ -72,5 +75,23 @@ public class ZeitRaster {
 		return doubleWert;
 	}
 	
+	//Zeit ganz auslesen und jeden Wert in ein String Array einlesen. Dieses wird zurückgegeben.
+	public String[] fullTimeArrayReturn(){
+		String[] zeitRaster = new String[51];
+		
+		if (rsZeit != null){
+			try{
+				int i = 0;
+				while(rsZeit.next()) {
+					String zeit = rsZeit.getString("Zeit");
+					zeitRaster[0] = zeit;
+					i++;
+				}
+			} catch (SQLException e1){//
+				e1.printStackTrace();
+			}	
+		}
+		return zeitRaster;
+	}
 }
 

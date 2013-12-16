@@ -5,15 +5,11 @@ import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-
-
-
 public class MAIN {
 
 	public static void main(String[] args) {
 		
 		//GraphicUserInterface gui = new GraphicUserInterface();
-		
 		Scanner userInput = new Scanner(System.in);
 		DataProcessing weekCheck = new DataProcessing();
 		SimpleDateFormat format = new SimpleDateFormat("E#dd.MM.yyyy#HH:mm:ss");
@@ -28,7 +24,7 @@ public class MAIN {
 					+ "\n.............."
 					+ "\n1: Raum abfragen"
 					+ "\n2: Raum updaten (alle Werte)"
-					//+ "\n3: Tag/Datum/Uhrzeit"
+					+ "\n3: Neue Tabelle anlegen"
 					//+ "\n4: Hier könnte Ihre Werbung stehen"
 					//+ "\n5: Hier könnte Ihre Werbung stehen"
 					//+ "\n6: Hier könnte Ihre Werbung stehen"
@@ -41,8 +37,7 @@ public class MAIN {
 					String building = userInput.next();
 					System.out.println("Bitte geben Sie nun den Raum des Gebäudes an: ");
 					int selectRum = userInput.nextInt();
-					DataProcessing auswahl = new DataProcessing();
-					int verwertung = auswahl.auswahlVerarbeitung(building);
+					int verwertung = DataProcessing.auswahlVerarbeitung(building);
 					switch(verwertung){
 						case 0:
 							break;
@@ -80,14 +75,12 @@ public class MAIN {
 							+ "-Bitte denken Sie zuerst nach bevor Sie Daten eingeben.\n"
 							+ "-------------------------------------- \n"
 							+ "\nBitte geben Sie als erstes das Gebäude an: ");
-					
 					building = userInput.next();
 					System.out.println("\nBitte geben Sie nun den Raum an: ");
 					selectRum = userInput.nextInt();
-					DataProcessing checkBuilding = new DataProcessing();
-					verwertung = checkBuilding.auswahlVerarbeitung(building);
+					verwertung = DataProcessing.auswahlVerarbeitung(building);
 					//String date = breakup[1];
-					//String time = breakup[2];//
+					//String time = breakup[2];
 					switch(verwertung){
 						case 0:
 							break;
@@ -120,33 +113,15 @@ public class MAIN {
 					}
 					
 				
-				System.out.println("\n\n");
-				break;
-					
+					System.out.println("\n\n");
+					break;
 				case 3:
-					/*
-					SimpleDateFormat format = new SimpleDateFormat("E#dd.MM.yyyy#HH:mm:ss");
-					String dayDateTime = format.format(Calendar.getInstance().getTime());
-					System.out.println(dayDateTime);
-					String[] breakup = dayDateTime.split( Pattern.quote( "#" ) );
-					System.out.println( Arrays.toString(breakup) ); // [Tag, Datum, Zeit]
-					//System.out.println(breakup[1]);
-					String freitag = "Fr";
-					tag = breakup[0];
-					if(freitag.hashCode() == tag.hashCode()){
-						System.out.println(breakup[1]);
-					}else{System.out.println("ungleich");}
-					
-					String[] numb1 = {freitag};
-					String[] numb2 = {breakup[0]};
-					if(java.util.Arrays.equals(numb1, numb2)){
-						System.out.println("Ja");
-					}else{
-						System.out.println("Nein");
-					}
-					*/
+					System.out.println("Bitte geben Sie den Namen der Tabelle an: ");
+					String tableName = userInput.next();
+					MySQLConnection.createTable(tableName);
 					break;
 				case 4:
+					System.out.println(DataProcessing.getCheck(2));
 					break;
 				case 5:
 					break;

@@ -168,9 +168,10 @@ public class MySQLConnection {
         }
     }
 
-    public static void createTable(String tableName,String[] time){
+    public static void createTable(String tableName){
+    	TimeTable getTime = new TimeTable();
+    	String[] time = getTime.fullTimeArrayReturn();
     	conn = getInstance();
-        
         if(conn != null)
         {
             // Anfrage-Statement erzeugen.
@@ -179,14 +180,14 @@ public class MySQLConnection {
                 query = conn.createStatement();
                 // Ergebnistabelle erzeugen und abholen.
                 String createSql = "CREATE TABLE " + tableName + " "
-                		+ "(Zeit VARCHAR(255) "
-                		+ "Montag VARCHAR(255) "
-                		+ "Dienstag VARCHAR(255) "
+                		+ "(Zeit VARCHAR(255), "
+                		+ "Montag VARCHAR(255), "
+                		+ "Dienstag VARCHAR(255), "
                 		+ "Mittwoch VARCHAR(255) "
                 		+ "Donnerstag VARCHAR(255) "
                 		+ "Freitag VARCHAR(255) "
-                		+ "Samstag VARCHAR "
-                		+ "Offen VARCHAR(255))";
+                		+ "Samstag VARCHAR(255) "
+                		+ "Offen VARCHAR(255));";
                 query.execute(createSql);             
             } catch (SQLException e) {
                 e.printStackTrace();

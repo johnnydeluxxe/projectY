@@ -1,30 +1,18 @@
 package fh;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.Dimension;
 import java.lang.String;
-
-import javax.swing.JTable;
-
-import fh.MySQLConnection;
 
 public class BuildF {
 	
 	BuildF(){
-		//KONSTRUKTOR
-		//---------------	
+		//KONSTRUKTOR	
 	}
-	
 	
 	public static void updateRum022(){
 		Scanner userInput = new Scanner(System.in);
@@ -53,7 +41,7 @@ public class BuildF {
 		
 		ResultSet rsDay = MySQLConnection.printDay("rum022", day);
 		ResultSet rsZeit = MySQLConnection.printZeit("rum022");
-		ZeitRaster zeitMaster = new ZeitRaster();
+		TimeTable zeitMaster = new TimeTable();
 		
 		String[][] stringZeitRaster = new String[6][51];
 		boolean[][] belegung = new boolean[6][51];
