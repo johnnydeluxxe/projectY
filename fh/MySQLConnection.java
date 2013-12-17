@@ -53,6 +53,48 @@ public class MySQLConnection {
         return conn;
     }
     
+    public String checkLoginData(String bnName, String bnPassword){
+    	
+    	conn = getInstance();
+        
+        if(conn != null)
+        {
+            // Anfrage-Statement erzeugen.
+            Statement query;
+            try {
+                query = conn.createStatement();
+		    	//Boolean validation = false;
+		    	String user = null;
+		    	String userpassword = null;
+		    	String sql = "SELECT * FROM userlogin WHERE loginname = '" + bnName +"'";
+                ResultSet result1 = query.executeQuery(sql);
+                while (result1.next()) {
+                	user = result1.getString("loginname");
+                	userpassword = result1.getString("loginpwd"); // Alternativ: result1.getString(1);
+                }
+                
+		    	if (bnName.equals(user)){
+					if (bnPassword.equals(userpassword)){
+						return "Richtig";
+					}
+					else{	
+						return "Falsch";
+					}
+					
+				} 
+				else{
+					return "Falsch";
+				}
+            } catch (SQLException e) {
+                //e.printStackTrace();
+                System.out.println("Filme konnten nicht ausgegeben werden. Fehler: " + e);
+                System.exit(0); //Abbruch des Programms
+            }
+        }
+		return "Fehler";
+    	
+    }
+    
     public static ResultSet printZeit(String rum){
     	conn = getInstance();
     	
@@ -61,7 +103,7 @@ public class MySQLConnection {
     		try{
     			query = conn.createStatement();
     			
-    			String sql = "SELECT Zeit " + "FROM rum022";
+    			String sql = "SELECT Zeit " + "FROM rumF022";
     			ResultSet result = query.executeQuery(sql);
     			
     			return result;
@@ -110,7 +152,7 @@ public class MySQLConnection {
                 query = conn.createStatement();
  
                 // Ergebnistabelle erzeugen und abholen.
-                String sql = "SELECT Dienstag " + "FROM rum022";
+                String sql = "SELECT Dienstag " + "FROM rumF022";
                 ResultSet result = query.executeQuery(sql);
                 
                 return result;
@@ -168,8 +210,8 @@ public class MySQLConnection {
         }
     }
 
-    public static void createTable(String tableName){
-    	TimeTable getTime = new TimeTable();
+    public static void createTable(String tableName, String rum, String day){
+    	TimeTable getTime = new TimeTable(rum, day);
     	String[] time = getTime.fullTimeArrayReturn();
     	conn = getInstance();
         if(conn != null)
@@ -181,13 +223,13 @@ public class MySQLConnection {
                 // Ergebnistabelle erzeugen und abholen.
                 String createSql = "CREATE TABLE " + tableName + " "
                 		+ "(Zeit VARCHAR(255), "
-                		+ "Montag VARCHAR(255), "
-                		+ "Dienstag VARCHAR(255), "
-                		+ "Mittwoch VARCHAR(255) "
-                		+ "Donnerstag VARCHAR(255) "
-                		+ "Freitag VARCHAR(255) "
-                		+ "Samstag VARCHAR(255) "
-                		+ "Offen VARCHAR(255));";
+                		+ "Montag TINYINT(1), "
+                		+ "Dienstag TINYINT(1), "
+                		+ "Mittwoch TINYINT(1), "
+                		+ "Donnerstag TINYINT(1), "
+                		+ "Freitag TINYINT(1), "
+                		+ "Samstag TINYINT(1), "
+                		+ "Offen TINYINT(1));";
                 query.execute(createSql);             
             } catch (SQLException e) {
                 e.printStackTrace();

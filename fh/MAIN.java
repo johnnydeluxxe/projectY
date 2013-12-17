@@ -9,7 +9,7 @@ public class MAIN {
 
 	public static void main(String[] args) {
 		
-		//GraphicUserInterface gui = new GraphicUserInterface();
+		GraphicUserInterface gui = new GraphicUserInterface();
 		Scanner userInput = new Scanner(System.in);
 		DataProcessing weekCheck = new DataProcessing();
 		SimpleDateFormat format = new SimpleDateFormat("E#dd.MM.yyyy#HH:mm:ss");
@@ -30,14 +30,17 @@ public class MAIN {
 					//+ "\n6: Hier könnte Ihre Werbung stehen"
 					+ "\n7: Close");
 	    	int eingabe = userInput.nextInt();
+	    	int verwertung = 0;
+	    	String building = null;
 			switch(eingabe){
 				case 1:
 					//Variable eingabe des Gebäudes und Raumes.
 					System.out.println("Bitte geben Sie an welches Gebäude: ");
-					String building = userInput.next();
+					building = userInput.next();
 					System.out.println("Bitte geben Sie nun den Raum des Gebäudes an: ");
 					int selectRum = userInput.nextInt();
-					int verwertung = DataProcessing.auswahlVerarbeitung(building);
+					verwertung = DataProcessing.auswahlVerarbeitung(building);
+					System.out.println("Die verwertung ist " + verwertung);
 					switch(verwertung){
 						case 0:
 							break;
@@ -75,22 +78,28 @@ public class MAIN {
 							+ "-Bitte denken Sie zuerst nach bevor Sie Daten eingeben.\n"
 							+ "-------------------------------------- \n"
 							+ "\nBitte geben Sie als erstes das Gebäude an: ");
+					//String date = breakup[1];
+					//String time = breakup[2];
 					building = userInput.next();
 					System.out.println("\nBitte geben Sie nun den Raum an: ");
 					selectRum = userInput.nextInt();
 					verwertung = DataProcessing.auswahlVerarbeitung(building);
-					//String date = breakup[1];
-					//String time = breakup[2];
+					System.out.println("Die verwertung ist " + verwertung);
 					switch(verwertung){
 						case 0:
+							System.out.println("Case 0");
 							break;
 						case 1:
+							System.out.println("Case 1");
 							break;
 						case 2:
+							System.out.println("Case 2");
 							break;
 						case 3:
+							System.out.println("Case 3");
 							break;
 						case 4:
+							System.out.println("Case 4");
 							break;
 						case 5:
 							if(selectRum == 22){
@@ -99,17 +108,25 @@ public class MAIN {
 							System.out.println("\n\n");
 							break;
 						case 6:
+							System.out.println("Case 6");
 							break;
 						case 7:
+							System.out.println("Case 7");
 							break;
 						case 8:
+							System.out.println("Case 8");
 							break;
 						case 9:
+							System.out.println("Case 9");
 							break;
 						case 10:
+							System.out.println("Case 10");
 							break;
 						case 11:
+							System.out.println("Case 11");
 							break;
+						default:
+							System.out.println("Switch Ende");
 					}
 					
 				
@@ -118,10 +135,12 @@ public class MAIN {
 				case 3:
 					System.out.println("Bitte geben Sie den Namen der Tabelle an: ");
 					String tableName = userInput.next();
-					MySQLConnection.createTable(tableName);
+					System.out.println("Geben Sie den Raum an: ");
+					String rum = userInput.next();
+					MySQLConnection.createTable(tableName, rum, breakup[0]);
 					break;
 				case 4:
-					System.out.println(DataProcessing.getCheck(2));
+					System.out.println(DataProcessing.check[1]);
 					break;
 				case 5:
 					break;

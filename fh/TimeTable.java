@@ -6,9 +6,13 @@ import java.sql.SQLException;
 public class TimeTable {
 	
 	private ResultSet rsZeit;
+	private ResultSet rsValue;
+	private String day;
 	
-	TimeTable(){
-		rsZeit = MySQLConnection.printZeit("rum022"); 	// Raum "rum022" wird verwendet da dies eine sichere Zeitquelle ist. Darf momentan nicht 
+	TimeTable(String rum, String day){
+		this.day = day;
+		rsZeit = MySQLConnection.printZeit("rumF022"); 	// Raum "rum022" wird verwendet da dies eine sichere Zeitquelle ist. Darf momentan nicht 
+		rsValue = MySQLConnection.printDay(rum, day);
 	}													// verändert werden.
 	
 	// Zeit auslesen und Wert an stelle "a" und stelle "b" in String-Array speichern
@@ -33,26 +37,27 @@ public class TimeTable {
 	}
 	
 	//Zeit auslesen und Wert an stelle "a" und stelle "b" in Boolean-Array speichern
-	public boolean BooleanArray(int a, int b) {	
-		boolean[][] boolZeitRaster = new boolean[6][51];
-		boolean booleanWert = false;
-		if (rsZeit != null){
+	public double DoubleArray(int a) {	
+		double[] doubleZeitRaster = new double[51];
+		double doubleWert = 0;
+		if (rsValue != null){
 			try{
 				int i = 0;
-				while(rsZeit.next()) {
-					boolean zeit = rsZeit.getBoolean("Zeit");
+				while(rsValue.next()) {
+					//boolean zeit = rsZeit.getBoolean("Zeit");
+					double value = rsValue.getDouble(day);
 					
-					boolZeitRaster[0][i] = zeit;
+					doubleZeitRaster[i] = value;
 					i++;
 				}
 			}catch (SQLException e1){
 				e1.printStackTrace();
 			}
-			booleanWert = boolZeitRaster[a][b];
+			doubleWert = doubleZeitRaster[a];
 		}
-		return booleanWert;
+		return doubleWert;
 	}
-	
+	/*
 	//Zeit auslesen und Wert an stelle "a" und stelle "b" in Double-Array speichern
 	public double DoubleArray(int a, int b) {
 		double[][] doubleZeitRaster = new double[6][51];
@@ -74,7 +79,7 @@ public class TimeTable {
 		}
 		return doubleWert;
 	}
-	
+	*/
 	//Zeit ganz auslesen und jeden Wert in ein String Array einlesen. Dieses wird zurückgegeben.
 	public String[] fullTimeArrayReturn(){
 		String[] zeitRaster = new String[51];

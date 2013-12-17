@@ -39,9 +39,9 @@ public class BuildF {
 	
 	public static void printRum022(String day){
 		
-		ResultSet rsDay = MySQLConnection.printDay("rum022", day);
-		ResultSet rsZeit = MySQLConnection.printZeit("rum022");
-		TimeTable zeitMaster = new TimeTable();
+		ResultSet rsDay = MySQLConnection.printDay("rumF022", day);
+		ResultSet rsZeit = MySQLConnection.printZeit("rumF022");
+		TimeTable zeitMaster = new TimeTable("rumF022", day);
 		
 		String[][] stringZeitRaster = new String[6][51];
 		boolean[][] belegung = new boolean[6][51];
@@ -65,8 +65,6 @@ public class BuildF {
 			}	
 		}
 		
-		
-		// Zeit auslesen und in String-Array speichern
 		if (rsZeit != null){
 			try{
 				int i = 0;
@@ -81,13 +79,13 @@ public class BuildF {
 			}
 			
 		}
-		/*
-		for(int i = 0; i <= 50 ; i++){
-			System.out.println(zeitRaster[0][i] + " Uhr: " + belegung[0][i]);	
-		}
-		*/
-		//Zeit-Verarbeitung
 		
+		for(int i = 0; i <= 50 ; i++){
+			System.out.println(stringZeitRaster[0][i] + " Uhr: " + belegung[0][i]);	
+		}
+		
+		//Zeit-Verarbeitung
+		/*
 		SimpleDateFormat format = new SimpleDateFormat("E#dd.MM.yyyy#HH.mm");
 		String dayDateTime = format.format(Calendar.getInstance().getTime());
 		String[] breakup = dayDateTime.split( Pattern.quote( "#" ) );
@@ -99,34 +97,28 @@ public class BuildF {
 		
 		double achtDreissig = 830.0D;
 		
-		//System.out.println(zeitMaster.DoubleArray(0, 0));
-		//System.out.println(zeitMaster.DoubleArray(0, 3));
-
 		int lecture = 0;
 		
 		if (zeitMaster.DoubleArray(0, 0) < achtDreissig && achtDreissig < zeitMaster.DoubleArray(0, 3)) {
-			if (zeitMaster.BooleanArray(0, 0) && zeitMaster.BooleanArray(0, 1) && zeitMaster.BooleanArray(0, 2)&& zeitMaster.BooleanArray(0, 3)){
+			if (zeitMaster.BooleanArray(1, 0) && zeitMaster.BooleanArray(1, 1) && zeitMaster.BooleanArray(1, 2)&& zeitMaster.BooleanArray(1, 3)){
 				lecture = 0;
 			}else{
 				lecture = 1;
 			}
-		}else{
-			lecture = 1;
+		}else if(zeitMaster.DoubleArray(0, 4) < achtDreissig && achtDreissig < zeitMaster.DoubleArray(0, 7)){
+			
 		}
 		
 		
 		
-		
-		
-		
-		
+		System.out.println(zeitMaster.DoubleArray(1, 3));
 		if (lecture == 0){
-			int timeDif = (int) zeitMaster.DoubleArray(0, 3); 
-			System.out.println("Der Raum ist noch für " + timeDif + "geöffnet.");
+			double timeDif = zeitMaster.DoubleArray(1, 3) - achtDreissig; 
+			System.out.println("Der Raum ist noch für " + timeDif + " geöffnet.");
 		}else if (lecture == 1){
 			System.out.println("Raum hat Vorlesung.");
 		}
-		
+		*/
 		
 		
 	}

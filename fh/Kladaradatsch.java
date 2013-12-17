@@ -24,5 +24,27 @@ public class Kladaradatsch {
 		System.out.println("Nein");
 	}
 	*/
+	
+	/*
+	// Zeit auslesen und in String-Array speichern
+	if (rsZeit != null){
+		try{
+			int i = 0;
+			while(rsZeit.next()) {
+				String zeit = rsZeit.getString("Zeit");
+				
+				stringZeitRaster[0][i] = zeit;
+				i++;
+			}
+		} catch (SQLException e1){
+			e1.printStackTrace();
+		}
+		
+	}
+	
+	for(int i = 0; i <= 50 ; i++){
+		System.out.println(zeitRaster[0][i] + " Uhr: " + belegung[0][i]);	
+	}
+	*/
 
 }

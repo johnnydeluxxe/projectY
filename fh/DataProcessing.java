@@ -12,20 +12,21 @@ public class DataProcessing {
 	public static String getCheck(int i) {
 		return check[i];
 	}
-	public static String getTime(int i) {
+	
+public static String getTime(int i) {
 		return time[i];
 	}
 	
 	//Hier wird die Auswahl des Gebäudes ausgewertet und mit dem array "check" verglichen. Das ergebnis wird als int zurückgegeben. 
 	public static int auswahlVerarbeitung(String building){
-		int checkFinal = 5; // Für Standard Gebäude F
+		//System.out.println("Ihr gewähltes Gebäude: " + building);
+		int checkFinal = 6; // Für Standard Gebäude F
 		for(int i = 0; i < check.length; i++){
-			if(check[i] == building){
+			if(check[i].hashCode() == building.hashCode()){
 			checkFinal = i;	
-			
-			}else{}
-			
-		}
+			break;
+			} //End If
+		} // End For 
 		return 	checkFinal;//
 	}
 	
